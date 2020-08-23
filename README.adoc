@@ -1,0 +1,67 @@
+= dynamic-matching.kak
+
+== Intro
+dynamic-matching is a plugin that attempts to provide a better pair selection for
+https://github.com/mawww/kakoune[Kakoune]
+(by default, the `m` key).
+
+By default, Kakoune's `m` key selects pairs by the following scheme:
+
+[source, txt]
+----
+0
+{                 <-- 0/6
+    1
+    {             <-- 1
+        2
+        {         <-- 2/3
+            3
+        }
+    }
+    4
+    {             <-- 4/5
+        5
+    }
+    6
+}
+7
+----
+
+However, once you select a pair block, you cannot move easily to the next one;
+and you need to specify all of the matching pairs through an option that `m` read,
+even though you may only want to match a specific pair right now.
+Additionally, if you try to extend from a matching to a bigger matching
+(the current one would be nested),
+you get a wrong selection.
+
+This plugin solves the issues providing
+link:rc/dynamic-matching.kak[four] main functions to select/extend to the next/prev match.
+
+== Installation
+You can add link:rc/dynamic-matching.kak[`dynamic-matching.kak`] to your autoload directory
+or source it manually.
+
+=== Using https://github.com/robertmeta/plug.kak[`plug.kak`]
+
+[source, kak]
+----
+plug "useredsa/dynamic-matching.kak" %{
+    ...
+}
+----
+
+== Recommended Mappings
+I recommend substituting the functionality of the `m` and `M` keys with the new one.
+
+You can try the default `dmatch` user mode configuration by executing
+`dynamic-matching-dmatch-conf` and declaring your preferred mappings.
+
+[source, kak]
+----
+plug "useredsa/dynamic-matching.kak" %{
+    dynamic-matching-dmatch-conf
+    map global normal m ': enter-user-mode dmatch<ret>'
+    map global normal M ': enter-user-mode Dmatch<ret>'
+    map global user   m ': enter-user-mode -lock dmatch<ret>' -docstring "dmatch"
+}
+----
