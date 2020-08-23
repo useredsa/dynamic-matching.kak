@@ -5,6 +5,8 @@ dynamic-matching is a plugin that attempts to provide a better pair selection fo
 https://github.com/mawww/kakoune[Kakoune]
 (by default, the `m` key).
 
+https://asciinema.org/a/355102[image:https://asciinema.org/a/355102.svg[asciicast]]
+
 By default, Kakoune's `m` key selects pairs by the following scheme:
 
 [source, txt]
